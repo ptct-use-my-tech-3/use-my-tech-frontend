@@ -8,6 +8,7 @@ import {
 	Link,
 } from "@material-ui/core";
 import axios from "axios";
+import { axiosWithAuth } from "../helpers/axiosWithAuth";
 
 const Login = (props) => {
 	// sets paper like style
@@ -35,6 +36,21 @@ const Login = (props) => {
 		}));
 	};
 
+	// submit token for authentication 
+	const handleSubmit = (e) => {
+		e.preventDefault()
+		axiosWithAuth()
+			.post('/login', username)
+			.then((res) => {
+				localStorage.setItem('token', res.data.payload)
+				push('/home')
+			})
+			.catch(err => console.log({err}));
+	}
+
+	// error state
+	const error = "Username or Password incorrect.";
+
 	// TODO: add API link to login in .post
 	const login = (e) => {
 		axios
@@ -56,6 +72,10 @@ const Login = (props) => {
 				<Grid align="center">
 					<h2>Log In</h2>
 				</Grid>
+
+				{/* <h2>form for handleSubmit for token<h2> */}
+				<form onSubmit={handleSubmit}>
+
 				<TextField
 					id="username"
 					value={signIn.username}
@@ -95,6 +115,11 @@ const Login = (props) => {
 						Sign Up
 					</Link>
 				</Typography>
+				
+				</form>
+
+				{/* <h2>p tag for login error</h2> */}
+				<p id="error" className="error">{error}</p>
 			</Paper>
 		</Grid>
 	);
