@@ -40,10 +40,10 @@ const Login = (props) => {
 	const handleSubmit = (e) => {
 		e.preventDefault()
 		axiosWithAuth()
-			.post('/login', username)
+			.post('/users', signIn)
 			.then((res) => {
 				localStorage.setItem('token', res.data.payload)
-				push('/home')
+				props.history.push('/home')
 			})
 			.catch(err => console.log({err}));
 	}
