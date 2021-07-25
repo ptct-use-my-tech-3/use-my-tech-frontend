@@ -51,21 +51,6 @@ const Login = (props) => {
 	// error state
 	const error = "Username or Password incorrect.";
 
-	// TODO: add API link to login in .post
-	// const login = (e) => {
-	// 	axios
-	// 		.post("", { sign })
-	// 		.then((res) => {
-	// 			console.log(res);
-	// 			// sets local storage to login
-	// 			localStorage.setItem("user", JSON.stringify(res.data));
-	// 			// "/home" will be used as a home page when user is logged in instead of just "/"
-	// 			props.history.push("/home");
-	// 		})
-	// 		.catch((err) => {
-	// 			console.log(err);
-	// 		});
-	// };
 	return (
 		<Grid>
 			<Paper elevation={10} style={paperStyle}>
