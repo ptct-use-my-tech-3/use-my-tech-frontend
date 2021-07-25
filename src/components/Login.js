@@ -8,6 +8,7 @@ import {
 	Link,
 } from "@material-ui/core";
 import axios from "axios";
+import { axiosWithAuth } from "../helpers/axiosWithAuth";
 
 const Login = (props) => {
 	// sets paper like style
@@ -37,8 +38,8 @@ const Login = (props) => {
 
 	// TODO: add API link to login in .post
 	const login = (e) => {
-		axios
-			.post("", { username: signIn.username, password: signIn.password })
+		axiosWithAuth()
+			.post("/users", signIn )
 			.then((res) => {
 				console.log(res);
 				// sets local storage to login
