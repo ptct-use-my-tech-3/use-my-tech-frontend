@@ -87,7 +87,6 @@ const Login = (props) => {
 					color="primary"
 					variant="contained"
 					style={btnstyle}
-					onClick={login}
 					fullWidth
 				>
 					Log In
