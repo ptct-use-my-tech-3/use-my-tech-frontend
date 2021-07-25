@@ -8,6 +8,7 @@ import {
 	Link,
 } from "@material-ui/core";
 import axios from "axios";
+import { axiosWithAuth } from "../helpers/axiosWithAuth";
 
 const Login = (props) => {
 	// sets paper like style
@@ -35,27 +36,31 @@ const Login = (props) => {
 		}));
 	};
 
-	// TODO: add API link to login in .post
-	const login = (e) => {
-		axios
-			.post("", { username: signIn.username, password: signIn.password })
+	// submit token for authentication 
+	const handleSubmit = (e) => {
+		e.preventDefault()
+		axiosWithAuth()
+			.post('/users', signIn )
 			.then((res) => {
-				console.log(res);
-				// sets local storage to login
-				localStorage.setItem("user", JSON.stringify(res.data));
-				// "/home" will be used as a home page when user is logged in instead of just "/"
-				props.history.push("/home");
+				localStorage.setItem('token', res.data.payload)
+			props.history.push('/home')
 			})
-			.catch((err) => {
-				console.log(err);
-			});
-	};
+			.catch(err => console.log({err}));
+	}
+
+	// error state
+	const error = "Username or Password incorrect.";
+
 	return (
 		<Grid>
 			<Paper elevation={10} style={paperStyle}>
 				<Grid align="center">
 					<h2>Log In</h2>
 				</Grid>
+
+				{/* <h2>form for handleSubmit for token<h2> */}
+				<form onSubmit={handleSubmit}>
+
 				<TextField
 					id="username"
 					value={signIn.username}
@@ -82,7 +87,6 @@ const Login = (props) => {
 					color="primary"
 					variant="contained"
 					style={btnstyle}
-					onClick={login}
 					fullWidth
 				>
 					Log In
@@ -95,6 +99,11 @@ const Login = (props) => {
 						Sign Up
 					</Link>
 				</Typography>
+				
+				</form>
+
+				{/* <h2>p tag for login error</h2> */}
+				<p id="error" className="error">{error}</p>
 			</Paper>
 		</Grid>
 	);
