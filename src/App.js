@@ -4,7 +4,8 @@ import Login from "./components/Login";
 import Signup from "./components/Signup";
 import UserHome from "./components/UserHome";
 import { BrowserRouter as Router, Route } from "react-router-dom";
-import { axiosWithAuth } from "./helpers/axiosWithAuth"
+import { axiosWithAuth } from "./helpers/axiosWithAuth";
+import { PrivateRoute } from './components/PrivateRoute';
 
 // TODO: uncomment when user auth is available
 // import { PrivateRoute } from "./Components/Util/PrivateRoute";
@@ -29,9 +30,7 @@ function App() {
 				<Route path="/login" component={Login} />
 				<Route path="/signup" component={Signup} />
 				<Route path="home" component={UserHome} />
-				{/* <PrivateRoute exact path="/home">
-			<UserHome/>
-		</PrivateRoute> */}
+				<PrivateRoute path="/home" component={UserHome} />
 			</div>
 		</Router>
 	);
