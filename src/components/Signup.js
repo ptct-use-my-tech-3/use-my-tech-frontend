@@ -7,29 +7,12 @@ import {
 	Typography,
 	Link,
 } from "@material-ui/core";
-
+import {signUpFormSchema}   from '../schemas/signUpFormSchema'
 import { axiosWithAuth } from "../helpers/axiosWithAuth";
 import * as Yup from 'yup'
 
-//form validation
-const formSchema = Yup.object().shape({
-    username: Yup
-    .string()
-		.required("Must include a username")
-		.min(4,"Username must be at least 4 characters long."),
-    email: Yup
-		.string()
-		.email("Must be a valid email address.")
-		.required("Must include email address."),
-    password: Yup
-		.string()
-		.required("Password is Required")
-		.min(6, "Passwords must be at least 6 characters long."),
-	confirmpassword: Yup
-		.string()
-		.required("Must re-enter password")
-		// .oneOf([Yup.ref('password')],'Confirm Password: Passwords must match')
-});
+
+
 
 
 
@@ -62,7 +45,7 @@ const Signup = (props) => {
 
 	//
 	const setFormErrors = (name, value)=>{
-		Yup.reach(formSchema, name).validate(value)
+		Yup.reach(signUpFormSchema, name).validate(value)
 		.then(()=> setErrors({...errors, [name]:''}))
 		.catch(err => setErrors({ ...errors, [name]: err.errors[0]}))
 	}
@@ -93,7 +76,7 @@ const Signup = (props) => {
 
 // disables submit button until form is valid
 	useEffect(()=>{
-		formSchema.isValid(signUp).then(valid =>{
+		signUpFormSchema.isValid(signUp).then(valid =>{
 			setDisabled(!valid)
 		})
 	}, [signUp])
