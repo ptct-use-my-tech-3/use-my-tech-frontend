@@ -6,11 +6,12 @@ import {
 	Button,
 	Typography,
 	Link,
+	Select,
+	MenuItem,
 } from "@material-ui/core";
 import {signUpFormSchema}   from '../schemas/signUpFormSchema'
 import { axiosWithAuth } from "../helpers/axiosWithAuth";
 import * as Yup from 'yup'
-
 
 
 
@@ -34,11 +35,12 @@ const Signup = (props) => {
 	const [signUp, setSignup] = useState({
 		username: "",
 		email: "",
+		userType: "",
 		password: "",
 		confirmpassword: "",
 	});
 	//holds error state
-	const [errors, setErrors]=useState({username: "", email: "", password: "", confirmpassword: ""})
+	const [errors, setErrors]=useState({username: "", email: "", userType: "", password: "", confirmpassword: ""})
 
 	//
 	const[disabled, setDisabled] = useState(true);
@@ -109,11 +111,26 @@ const Signup = (props) => {
 					name="email"
 					value={signUp.email}
 					onChange={handleChange}
-					type="email"
+					email
 					label="Email"
 					fullWidth
 					required
 				/>
+
+				<TextField
+					id="userType"
+					name="userType"
+					value={signUp.userType.value}
+					label="User Type"
+					onChange={handleChange}
+					select
+					fullWidth
+					required
+				>
+					
+					<MenuItem value={"borrower"}>Borrower</MenuItem>
+					<MenuItem value={"lender"}>Lender</MenuItem>
+				</TextField>
 				
 				<TextField
 					id="password"
