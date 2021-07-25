@@ -6,10 +6,9 @@ import {
 	Button,
 	Typography,
 	Link,
-	Select,
 	MenuItem,
 } from "@material-ui/core";
-import {signUpFormSchema}   from '../schemas/signUpFormSchema'
+import { signUpFormSchema }   from '../schemas/signUpFormSchema'
 import { axiosWithAuth } from "../helpers/axiosWithAuth";
 import * as Yup from 'yup'
 
@@ -90,15 +89,11 @@ const Signup = (props) => {
 				<Grid align="center">
 					<h2>Sign Up</h2>
 				</Grid>
-				<div style={{color: '#ff0000'}}>
-					<div>{errors.username}</div>
-					<div>{errors.email}</div>
-					<div>{errors.password}</div>
-					<div>{errors.confirmpassword}</div>
-				</div>
+				
 				<TextField
 					id="username"
 					name="username"
+					helperText={errors.username}
 					value={signUp.username}
 					onChange={handleChange}
 					label="Username"
@@ -109,6 +104,7 @@ const Signup = (props) => {
 				<TextField
 					id="email"
 					name="email"
+					helperText={errors.email}
 					value={signUp.email}
 					onChange={handleChange}
 					email
@@ -120,6 +116,7 @@ const Signup = (props) => {
 				<TextField
 					id="userType"
 					name="userType"
+					helperText={errors.userType}
 					value={signUp.userType.value}
 					label="User Type"
 					onChange={handleChange}
@@ -127,7 +124,6 @@ const Signup = (props) => {
 					fullWidth
 					required
 				>
-					
 					<MenuItem value={"borrower"}>Borrower</MenuItem>
 					<MenuItem value={"lender"}>Lender</MenuItem>
 				</TextField>
@@ -135,6 +131,7 @@ const Signup = (props) => {
 				<TextField
 					id="password"
 					name="password"
+					helperText={errors.password}
 					value={signUp.password}
 					onChange={handleChange}
 					label="Password"
@@ -146,6 +143,7 @@ const Signup = (props) => {
 				<TextField
 					id="confirmpassword"
 					name="confirmpassword"
+					helperText={errors.confirmpassword}
 					value={signUp.confirmpassword}
 					onChange={handleChange}
 					label="Confirm Password"

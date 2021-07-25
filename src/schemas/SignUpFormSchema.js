@@ -12,7 +12,7 @@ export  const signUpFormSchema = Yup.object().shape({
 		.required("Must include email address."),
     userType: Yup
         .string()
-        .required("Choose a user type"),
+        .required(),
     password: Yup
 		.string()
 		.required("Password is Required")
