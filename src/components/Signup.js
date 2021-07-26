@@ -14,9 +14,6 @@ import * as Yup from 'yup'
 
 
 
-
-
-
 const Signup = (props) => {
 	
 	// sets styling of paper background
@@ -32,14 +29,22 @@ const Signup = (props) => {
 
 	// holds state to sign up
 	const [signUp, setSignup] = useState({
-		username: "",
+		// username: "",
 		email: "",
-		userType: "",
 		password: "",
+		// userType: "",
 		confirmpassword: "",
 	});
 	//holds error state
-	const [errors, setErrors]=useState({username: "", email: "", userType: "", password: "", confirmpassword: ""})
+	const [errors, setErrors]=useState({ 
+		// username: "", 
+		email: "",
+		// userType: "",
+		password: "", 
+		confirmpassword: ""
+	
+	})
+	//NOTE: add back username and usertype once backend is readty. 
 
 	//
 	const[disabled, setDisabled] = useState(true);
@@ -65,7 +70,7 @@ const Signup = (props) => {
 	const handleSubmit = (e) =>{
 		e.preventDefault();
 		axiosWithAuth()
-			.post('/users', signUp)
+			.post('/register', signUp)
 			.then( res =>{
 				console.log(res.data)
 				localStorage.setItem('token', JSON.stringify(res.data))
@@ -90,7 +95,7 @@ const Signup = (props) => {
 					<h2>Sign Up</h2>
 				</Grid>
 				
-				<TextField
+				{/* <TextField
 					id="username"
 					name="username"
 					helperText={errors.username}
@@ -99,7 +104,7 @@ const Signup = (props) => {
 					label="Username"
 					fullWidth
 					required
-				/>
+				/> */}
 				
 				<TextField
 					id="email"
@@ -113,7 +118,7 @@ const Signup = (props) => {
 					required
 				/>
 
-				<TextField
+				{/* <TextField
 					id="userType"
 					name="userType"
 					helperText={errors.userType}
@@ -126,7 +131,7 @@ const Signup = (props) => {
 				>
 					<MenuItem value={"borrower"}>Borrower</MenuItem>
 					<MenuItem value={"lender"}>Lender</MenuItem>
-				</TextField>
+				</TextField> */}
 				
 				<TextField
 					id="password"
