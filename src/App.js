@@ -29,7 +29,7 @@ function App() {
 				<Navbar />
 				<Route path="/login" component={Login} />
 				<Route path="/signup" component={Signup} />
-				<Route path="home" component={UserHome} />
+				
 				<PrivateRoute path="/home" component={UserHome} />
 			</div>
 		</Router>
