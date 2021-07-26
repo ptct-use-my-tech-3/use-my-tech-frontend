@@ -6,7 +6,6 @@ import {
 	Button,
 	Typography,
 	Link,
-	MenuItem,
 } from "@material-ui/core";
 import { signUpFormSchema }   from '../schemas/signUpFormSchema'
 import { axiosWithAuth } from "../helpers/axiosWithAuth";
