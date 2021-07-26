@@ -6,30 +6,13 @@ import {
 	Button,
 	Typography,
 	Link,
+	MenuItem,
 } from "@material-ui/core";
-
+import { signUpFormSchema }   from '../schemas/signUpFormSchema'
 import { axiosWithAuth } from "../helpers/axiosWithAuth";
 import * as Yup from 'yup'
 
-//form validation
-const formSchema = Yup.object().shape({
-    username: Yup
-    .string()
-		.required("Must include a username")
-		.min(4,"Username must be at least 4 characters long."),
-    email: Yup
-		.string()
-		.email("Must be a valid email address.")
-		.required("Must include email address."),
-    password: Yup
-		.string()
-		.required("Password is Required")
-		.min(6, "Passwords must be at least 6 characters long."),
-	confirmpassword: Yup
-		.string()
-		.required("Must re-enter password")
-		// .oneOf([Yup.ref('password')],'Confirm Password: Passwords must match')
-});
+
 
 
 
@@ -51,18 +34,19 @@ const Signup = (props) => {
 	const [signUp, setSignup] = useState({
 		username: "",
 		email: "",
+		userType: "",
 		password: "",
 		confirmpassword: "",
 	});
 	//holds error state
-	const [errors, setErrors]=useState({username: "", email: "", password: "", confirmpassword: ""})
+	const [errors, setErrors]=useState({username: "", email: "", userType: "", password: "", confirmpassword: ""})
 
 	//
 	const[disabled, setDisabled] = useState(true);
 
 	//
 	const setFormErrors = (name, value)=>{
-		Yup.reach(formSchema, name).validate(value)
+		Yup.reach(signUpFormSchema, name).validate(value)
 		.then(()=> setErrors({...errors, [name]:''}))
 		.catch(err => setErrors({ ...errors, [name]: err.errors[0]}))
 	}
@@ -93,7 +77,7 @@ const Signup = (props) => {
 
 // disables submit button until form is valid
 	useEffect(()=>{
-		formSchema.isValid(signUp).then(valid =>{
+		signUpFormSchema.isValid(signUp).then(valid =>{
 			setDisabled(!valid)
 		})
 	}, [signUp])
@@ -105,15 +89,11 @@ const Signup = (props) => {
 				<Grid align="center">
 					<h2>Sign Up</h2>
 				</Grid>
-				<div style={{color: '#ff0000'}}>
-					<div>{errors.username}</div>
-					<div>{errors.email}</div>
-					<div>{errors.password}</div>
-					<div>{errors.confirmpassword}</div>
-				</div>
+				
 				<TextField
 					id="username"
 					name="username"
+					helperText={errors.username}
 					value={signUp.username}
 					onChange={handleChange}
 					label="Username"
@@ -124,17 +104,34 @@ const Signup = (props) => {
 				<TextField
 					id="email"
 					name="email"
+					helperText={errors.email}
 					value={signUp.email}
 					onChange={handleChange}
-					type="email"
+					email
 					label="Email"
 					fullWidth
 					required
 				/>
+
+				<TextField
+					id="userType"
+					name="userType"
+					helperText={errors.userType}
+					value={signUp.userType.value}
+					label="User Type"
+					onChange={handleChange}
+					select
+					fullWidth
+					required
+				>
+					<MenuItem value={"borrower"}>Borrower</MenuItem>
+					<MenuItem value={"lender"}>Lender</MenuItem>
+				</TextField>
 				
 				<TextField
 					id="password"
 					name="password"
+					helperText={errors.password}
 					value={signUp.password}
 					onChange={handleChange}
 					label="Password"
@@ -146,6 +143,7 @@ const Signup = (props) => {
 				<TextField
 					id="confirmpassword"
 					name="confirmpassword"
+					helperText={errors.confirmpassword}
 					value={signUp.confirmpassword}
 					onChange={handleChange}
 					label="Confirm Password"
