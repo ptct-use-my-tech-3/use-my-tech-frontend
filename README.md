@@ -1,70 +1,45 @@
-# Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Use My Tech: Front End
 
-## Available Scripts
 
-In the project directory, you can run:
+## Description:  
+Tired of paying ridiculous fees for camera and other equipment rentals? Bypass the middleman and rent from a real person!
 
-### `npm start`
+## ☝️**Pitch**
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Use My Tech Stuff: like AirBnB, but for high end electronics. Are you tired of paying ridiculous fees for camera and other equipment rentals? Bypass the middleman and rent from a real person!
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
 
-### `npm test`
+## ✅ **MVP**
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+1. There are two established user types: `owner`s  and `renter`
 
-### `npm run build`
+2. `user` can login and create a profile
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+3. `user` can then setup items they have `for rent` such as cameras, TV's, party equipment such as speakers/fog machines, etc.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+4. `user` will be able to create, read, update and delete rental data. A second `user` can login and see `items` that users have `for rent` and ask to `rent` an `item`
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+5. One a `renter` has granted an item to a `user`, that `item` should then be in the user's `items`
 
-### `npm run eject`
+## 🏃‍♀️**Stretch**
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+1. Add a payment option into the application allowing a `user` to pay over Paypal / Stripe etc. to `rent` their `items`
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+2. Be able to schedule a `time` and `place` for pick-up
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+3. Add a `review` system into the app so that the social aspect is there to ensure that the `user` is legitimate.  
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
 
-## Learn More
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## References 
 
-To learn React, check out the [React documentation](https://reactjs.org/).
 
-### Code Splitting
+[**Schedule and Milestones**](https://www.notion.so/e47e56b01c7e4aec936ed35dba6667fb?v=dc00394354934504b8fc206c6a98e328)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+**Rubrics**  
 
-### Analyzing the Bundle Size
+[Unit 2](https://www.notion.so/Web-Unit-2-Rubric-bac8945c20314a52baa258a3afcf889f)  
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+[Unit 3](https://www.notion.so/Web-Unit-3-Rubric-d6776657a66d43128ab1cae1419e8878)
+  
