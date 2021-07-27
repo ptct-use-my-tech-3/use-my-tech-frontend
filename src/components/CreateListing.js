@@ -1,4 +1,4 @@
-import react, {useState} from 'react';
+import react, {useState, useEffect} from 'react';
 import {Grid,
         AppBar,
         Paper,
@@ -12,6 +12,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import axios from 'axios';
 import React from 'react';
 import ImageUpload from './ImageUpload';
+import ListingFormSchema from '../schemas/ListingFormSchema';
 
 
 const useStyles = makeStyles(theme => ({
@@ -51,6 +52,7 @@ const CreateListing = props => {
     };
 
     const [listing, updateListing] = useState(defaultListing);
+    const [disabled, setDisabled]  = useState(true);
 
     const handleChange = e => {
         const {name, value} = e.target;
@@ -63,8 +65,25 @@ const CreateListing = props => {
 
     const handleSubmit = e => {
         e.preventDefault();
+
         // POST to server
+        axios.post('https://reqres.in/api/posts', listing)
+            .then(res => {
+                console.log(res);
+            })
+            .catch(err => {
+                console.log(err);
+            });
     };
+
+    // Enable / Disable the Create Listing Button
+    useEffect(() => {
+        ListingFormSchema.isValid(listing)
+            .then(valid => {
+                setDisabled(!valid);
+            })
+    }, [listing]);
+
 
     return (
         <form autoComplete='off'>
@@ -123,7 +142,7 @@ const CreateListing = props => {
                                 fullWidth>
                             </TextField>
 
-                            <Button variant='contained'> Create Listing </Button>
+                            <Button variant='contained' disabled={disabled} onClick={handleSubmit}> Create Listing </Button>
                         </Grid>
                     </Paper>
                 </main>

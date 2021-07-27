@@ -17,7 +17,7 @@ const useStyles = makeStyles(theme => ({
 
 const ImageUpload = props => {
     const classes = useStyles();
-
+    
     const handleUploadClick = e => {
         e.preventDefault();
         props.updateListing({
