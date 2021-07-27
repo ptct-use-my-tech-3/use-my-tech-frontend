@@ -1,4 +1,4 @@
-import { React, useState } from "react";
+import { React, useState, useEffect } from "react";
 import {
 	Grid,
 	Paper,
@@ -7,7 +7,9 @@ import {
 	Typography,
 	Link,
 } from "@material-ui/core";
+import { signInFormSchema }   from '../schemas/signInFormSchema'
 import { axiosWithAuth } from "../helpers/axiosWithAuth";
+import * as Yup from 'yup'
 
 const Login = (props) => {
 	// sets paper like style
@@ -26,12 +28,32 @@ const Login = (props) => {
 		password: "",
 	});
 
-	// hands form change
+	//holds error state
+	const [errors, setErrors]=useState({ 
+		// username: "", 
+		email: "",
+		// userType: "",
+		password: ""
+	})
+	//NOTE: add back username and usertype once backend is readty. 
+
+	//
+	const[disabled, setDisabled] = useState(true);
+
+	//
+	const setFormErrors = (name, value)=>{
+		Yup.reach(signInFormSchema, name).validate(value)
+		.then(()=> setErrors({...errors, [name]:''}))
+		.catch(err => setErrors({ ...errors, [name]: err.errors[0]}))
+	}
+
+	// updates state with form's data
 	const handleChange = (e) => {
-		const { id, value } = e.target;
+		const { name, value } = e.target;
+		setFormErrors(name, value)
 		setSignIn((prevState) => ({
 			...prevState,
-			[id]: value,
+			[name]: value,
 		}));
 	};
 
@@ -47,21 +69,35 @@ const Login = (props) => {
 			.catch(err => console.log({err}));
 	}
 
-	// error state
-	const error = "Username or Password incorrect.";
+	// disables submit button until form is valid
+	useEffect(()=>{
+		signInFormSchema.isValid(signIn).then(valid =>{
+			setDisabled(!valid)
+		})
+	}, [signIn])
 
 	return (
 		<Grid>
+			<form onSubmit={handleSubmit}>
 			<Paper elevation={10} style={paperStyle}>
 				<Grid align="center">
 					<h2>Log In</h2>
 				</Grid>
 
-				{/* <h2>form for handleSubmit for token<h2> */}
-				<form onSubmit={handleSubmit}>
-
 				<TextField
-					id="username"
+					id="email"
+					name="email"
+					helperText={errors.email}
+					value={signIn.email}
+					onChange={handleChange}
+					email
+					label="Email"
+					fullWidth
+					required
+				/>
+				{/* <TextField
+					id="email"
+					name="email"
 					value={signIn.username}
 					onChange={handleChange}
 					label="Username"
@@ -79,6 +115,18 @@ const Login = (props) => {
 					type="password"
 					fullWidth
 					required
+				/> */}
+
+				<TextField
+					id="password"
+					name="password"
+					helperText={errors.password}
+					value={signIn.password}
+					onChange={handleChange}
+					label="Password"
+					type="password"
+					fullWidth
+					required
 				/>
 
 				<Button
@@ -87,6 +135,7 @@ const Login = (props) => {
 					variant="contained"
 					style={btnstyle}
 					fullWidth
+					disable={disabled}
 				>
 					Log In
 				</Button>
@@ -98,12 +147,10 @@ const Login = (props) => {
 						Sign Up
 					</Link>
 				</Typography>
-				
-				</form>
-
 				{/* <h2>p tag for login error</h2> */}
-				<p id="error" className="error">{error}</p>
+				{/* <p id="error" className="error">{error}</p> */}
 			</Paper>
+			</form>
 		</Grid>
 	);
 };
