@@ -17,7 +17,7 @@ const useStyles = makeStyles(theme => ({
 
 const ImageUpload = props => {
     const classes = useStyles();
-
+    
     const handleUploadClick = e => {
         e.preventDefault();
         props.updateListing({
@@ -31,6 +31,7 @@ const ImageUpload = props => {
             <CardContent>
                 <Grid direction='column'>
                     <input
+                    error={props.error}
                     accept='image/*'
                     id='contained-button-file'
                     name='image'
