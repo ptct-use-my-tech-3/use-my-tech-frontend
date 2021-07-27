@@ -56,7 +56,7 @@ const Navbar = (props) => {
 	};
 
 	const logout = () => {
-		localStorage.removeItem("user");
+		localStorage.removeItem("token");
 		alert("You've Logged Out!");
 		history.push("/");
 	};
@@ -81,7 +81,7 @@ const Navbar = (props) => {
 	];
 
 	// if statement displays navbar items according to if user is logged in or not
-	if (localStorage.getItem("user")) {
+	if (localStorage.getItem("token")) {
 		return (
 			<div className={classes.root}>
 				<AppBar position="static" color="info">

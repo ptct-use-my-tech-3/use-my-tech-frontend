@@ -1,4 +1,4 @@
-import { React, useState } from "react";
+import { React, useEffect, useState } from "react";
 import {
 	Grid,
 	Paper,
@@ -7,9 +7,14 @@ import {
 	Typography,
 	Link,
 } from "@material-ui/core";
-import axios from "axios";
+import { signUpFormSchema }   from '../schemas/signUpFormSchema'
+import { axiosWithAuth } from "../helpers/axiosWithAuth";
+import * as Yup from 'yup'
+
+
 
 const Signup = (props) => {
+	
 	// sets styling of paper background
 	const paperStyle = {
 		padding: 20,
@@ -23,84 +28,141 @@ const Signup = (props) => {
 
 	// holds state to sign up
 	const [signUp, setSignup] = useState({
-		username: "",
+		// username: "",
+		email: "",
 		password: "",
+		// userType: "",
 		confirmpassword: "",
 	});
+	//holds error state
+	const [errors, setErrors]=useState({ 
+		// username: "", 
+		email: "",
+		// userType: "",
+		password: "", 
+		confirmpassword: ""
+	
+	})
+	//NOTE: add back username and usertype once backend is readty. 
 
-	// TODO: add form validation
-	// TODO: disable button until form is valid
+	//
+	const[disabled, setDisabled] = useState(true);
+
+	//
+	const setFormErrors = (name, value)=>{
+		Yup.reach(signUpFormSchema, name).validate(value)
+		.then(()=> setErrors({...errors, [name]:''}))
+		.catch(err => setErrors({ ...errors, [name]: err.errors[0]}))
+	}
 
 	// updates state with form's data
 	const handleChange = (e) => {
-		const { id, value } = e.target;
+		const { name, value } = e.target;
+		setFormErrors(name, value)
 		setSignup((prevState) => ({
 			...prevState,
-			[id]: value,
+			[name]: value,
 		}));
 	};
 
-	// sends info to backend to add new user
-	const signup = (e) => {
-		axios
-			// TODO: add API link to sign-up in .post
-			.post("", {
-				username: signUp.username,
-				password: signUp.password,
+	//
+	const handleSubmit = (e) =>{
+		e.preventDefault();
+		axiosWithAuth()
+			.post('/register', signUp)
+			.then( res =>{
+				console.log(res.data)
+				localStorage.setItem('token', JSON.stringify(res.data))
+				props.history.push('/home');
 			})
-			.then((res) => {
-				console.log(res);
-				// sets local storage to login
-				localStorage.setItem("user", JSON.stringify(res.data));
-				// "/home" will be used when user is logged instead of just "/"
-				props.history.push("/home");
-			})
-			.catch((err) => {
-				console.log(err);
-			});
-	};
+			.catch( err => console.log(err))
+
+	}
+
+// disables submit button until form is valid
+	useEffect(()=>{
+		signUpFormSchema.isValid(signUp).then(valid =>{
+			setDisabled(!valid)
+		})
+	}, [signUp])
 	return (
+		
 		<Grid>
+			<form onSubmit={handleSubmit}>
 			<Paper elevation={10} style={paperStyle}>
 				<Grid align="center">
 					<h2>Sign Up</h2>
 				</Grid>
-				<TextField
+				
+				{/* <TextField
 					id="username"
+					name="username"
+					helperText={errors.username}
 					value={signUp.username}
 					onChange={handleChange}
 					label="Username"
-					placeholder="Enter username"
+					fullWidth
+					required
+				/> */}
+				
+				<TextField
+					id="email"
+					name="email"
+					helperText={errors.email}
+					value={signUp.email}
+					onChange={handleChange}
+					email
+					label="Email"
 					fullWidth
 					required
 				/>
+
+				{/* <TextField
+					id="userType"
+					name="userType"
+					helperText={errors.userType}
+					value={signUp.userType.value}
+					label="User Type"
+					onChange={handleChange}
+					select
+					fullWidth
+					required
+				>
+					<MenuItem value={"borrower"}>Borrower</MenuItem>
+					<MenuItem value={"lender"}>Lender</MenuItem>
+				</TextField> */}
+				
 				<TextField
 					id="password"
+					name="password"
+					helperText={errors.password}
 					value={signUp.password}
 					onChange={handleChange}
 					label="Password"
-					placeholder="Enter password"
 					type="password"
 					fullWidth
 					required
 				/>
+			
 				<TextField
 					id="confirmpassword"
+					name="confirmpassword"
+					helperText={errors.confirmpassword}
 					value={signUp.confirmpassword}
 					onChange={handleChange}
-					label="ConfirmPassword"
-					placeholder="Confirm password"
+					label="Confirm Password"
 					type="password"
 					fullWidth
 					required
 				/>
+				
 				<Button
 					type="submit"
 					color="secondary"
 					variant="contained"
 					style={btnstyle}
 					fullWidth
-					onClick={signup}
+					disabled={disabled}
 				>
 					Sign up
 				</Button>
@@ -113,6 +175,7 @@ const Signup = (props) => {
 					</Link>
 				</Typography>
 			</Paper>
+			</form>
 		</Grid>
 	);
 };

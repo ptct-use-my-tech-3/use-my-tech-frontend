@@ -8,7 +8,7 @@ import { PrivateRoute } from "./components/PrivateRoute";
 
 function App() {
 	return (
-		// TODO: remove <Route /> for UserHome and uncomment <PrivateRoute /> when user auth is done. Only there now to be able to view UserHome and build it without having to be logged in
+
 		<Router>
 			<div className="App">
 				<Navbar />
