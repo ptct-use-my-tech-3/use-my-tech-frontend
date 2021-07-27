@@ -7,7 +7,6 @@ import {
 	Typography,
 	Link,
 } from "@material-ui/core";
-import axios from "axios";
 import { axiosWithAuth } from "../helpers/axiosWithAuth";
 
 const Login = (props) => {
@@ -40,8 +39,7 @@ const Login = (props) => {
 	const handleSubmit = (e) => {
 		e.preventDefault()
 		axiosWithAuth()
-
-			.post('/users', signIn)
+			.post('/login', signIn)
 			.then((res) => {
 				localStorage.setItem('token', res.data.payload)
 				props.history.push('/home')
