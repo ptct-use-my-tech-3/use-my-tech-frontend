@@ -58,7 +58,7 @@ const Navbar = (props) => {
 	const logout = () => {
 		localStorage.removeItem("token");
 		alert("You've Logged Out!");
-		history.push("/");
+		history.push("/landing");
 	};
 
 	// TODO: add list of menu items here for when logged in.
@@ -88,7 +88,7 @@ const Navbar = (props) => {
 					<Toolbar>
 						<IconButton color="inherit">
 							<HomeIcon
-								onClick={() => handleButtonClick("/home")}
+								onClick={() => handleButtonClick("/landing")}
 								fontSize="large"
 							/>
 						</IconButton>
@@ -164,7 +164,7 @@ const Navbar = (props) => {
 					<Toolbar>
 						<IconButton color="inherit">
 							<HomeIcon
-								onClick={() => handleButtonClick("/")}
+								onClick={() => handleButtonClick("/landing")}
 								fontSize="large"
 							/>
 						</IconButton>
