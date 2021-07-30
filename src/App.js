@@ -4,12 +4,18 @@ import Login from "./components/Login";
 import Signup from "./components/Signup";
 import UserHome from "./components/UserHome";
 import { BrowserRouter as Router, Route } from "react-router-dom";
+import { useEffect } from "react";
 import { PrivateRoute } from "./components/PrivateRoute";
 import Landing from "./components/Landing";
+import {loadUser} from './actions/authActions'
+
 
 
 
 function App() {
+
+	
+
 	return (
 
 		<Router>

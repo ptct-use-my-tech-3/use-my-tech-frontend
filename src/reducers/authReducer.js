@@ -44,6 +44,7 @@ export default function(state = initialState, action){
         case LOGIN_ERROR:
         case LOGOUT:
         case REGISTER_ERROR:
+            localStorage.removeItem('token');
             return{
                 ...state,
                 token: null,

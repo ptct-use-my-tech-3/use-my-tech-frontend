@@ -1,4 +1,5 @@
 import {axiosWithAuth} from '../helpers/axiosWithAuth'
+import { returnErrors } from './errorActions';
 
 import{
     USER_LOADED,
@@ -26,8 +27,21 @@ export const loadUser = ()=> (dispatch, getState) =>{
             "Content-type" : "application/json"
         }
     }
+    if(token){
+        config.headers['x-auth-token'] = token;
+    }
 
     axiosWithAuth()
-        .get('')
+        .get('', config)
+            .then( res => dispatch({
+                type: USER_LOADED,
+                payload: res.data
+            }))
+            .catch( err =>{
+                dispatch(returnErrors(err.res.data, err.res.status))
+                dispatch({
+                    type: AUTH_ERROR
+                })
+            })
 
 }
