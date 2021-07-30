@@ -1,46 +1,57 @@
-import React from 'react';
+import { CallEnd } from '@material-ui/icons';
+import{
+    USER_LOADED,
+    USER_LOADING,
+    AUTH_ERROR,
+    LOGIN_SUCCESS,
+    LOGIN_ERROR,
+    LOGOUT,
+    REGISTER_SUCCESS,
+    REGISTER_ERROR
+} from '../actions/types';
 
-export const intitialState ={
-    email: '',
-    password: '',
-    loading: false,
-    token: '',
-    errorMessage: null
+const initialState ={
+    token: localStorage.getItem('token'),
+    isAuthenticated: null,
+    isLoading: false,
+    user: null
 }
 
-
-
-export const authReducer = (intitialState, action) => {
+export default function(state = initialState, action){
     switch(action.type){
-        case 'REQUEST_LOGIN':
+        case USER_LOADING:
             return{
-                ...intitialState,
-                loading: true,
+                ...state,
+                isLoading: true
             };
-        case 'LOGIN_SUCCESS':
+        case USER_LOADED:
             return{
-                ...intitialState,
-                email: action.payload.email,
-                password: action.payload.password,
-                token: action.payload.token,
-                loading: false,
+                ...state,
+                isAuthenticated: true,
+                isLoading: false,
+                user: action.payload
             };
-        case 'LOGOUT':
+        case LOGIN_SUCCESS:
+        case REGISTER_SUCCESS:
             return{
-                ...intitialState,
-                email: '',
-                token: ''
+                ...state,
+                ...action.payload,
+                isAuthenticated: true,
+                isLoading: false,
+                
             };
-        case 'LOGIN_ERROR':
+        case AUTH_ERROR:
+        case LOGIN_ERROR:
+        case LOGOUT:
+        case REGISTER_ERROR:
             return{
-                ...intitialState,
-                loading: false,
-                errorMessage: action.error
+                ...state,
+                token: null,
+                user: null,
+                isAuthenticated: false,
+                isLoading: false
             };
         default:
-            return{
-                intitialState
-            }
-    }
-    
+            return state;
+    };
 }
