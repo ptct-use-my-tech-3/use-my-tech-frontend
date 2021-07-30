@@ -40,7 +40,7 @@ const Login = (props) => {
 
 	//
 	const[disabled, setDisabled] = useState(true);
-	const {userData, setUserData} = useContext(UserContext)
+	// const {userData, setUserData} = useContext(UserContext)
 	//
 	const setFormErrors = (name, value)=>{
 		Yup.reach(signInFormSchema, name).validate(value)
@@ -65,20 +65,20 @@ const Login = (props) => {
 			.post('/login', signIn)
 			.then((res) => {
 				localStorage.setItem('token', res.data.payload)
-				setUserData({
-					...userData,
-					token: res.data.token,
-					owner: res.data.owner,
-					userId: res.data.id
-				})
+				// setUserData({
+				// 	...userData,
+				// 	token: res.data.token,
+				// 	owner: res.data.owner,
+				// 	userId: res.data.id
+				// })
 				props.history.push('/home')
 			})
 			.catch(err => {
 				console.log({err})
-			setUserData({
-				...userData,
-				error: err
-			})
+			// setUserData({
+			// 	...userData,
+			// 	error: err
+			// })
 			
 			});
 	}

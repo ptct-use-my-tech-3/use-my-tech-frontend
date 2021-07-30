@@ -18,10 +18,10 @@ function App() {
 				<Route path="/landing" component={Landing} />
 				<Route path="/login" component={Login} />
 				<Route path="/signup" component={Signup} />
-				<Route path="home" component={UserHome} />
-				<PrivateRoute exact path="/home">
-				<UserHome/>
-				</PrivateRoute>
+				{/* <Route path="home" component={UserHome} /> */}
+				<PrivateRoute path="/home" component={UserHome}/>
+				{/* <UserHome/>
+				</PrivateRoute> */}
 			</div>
 		</Router>
 	);
